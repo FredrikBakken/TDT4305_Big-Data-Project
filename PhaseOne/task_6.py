@@ -2,7 +2,7 @@
 TASK 6: Frequent Words in a Country
 
 Description:
- - Find 10 most frequent words and their frequencies in tweet_texts posted from the US (country code = ‘US’).
+ - Find 10 most frequent words and their frequencies in tweet_texts posted from the US (country code = 'US').
  - Word-frequency pairs must be sorted in descending order of frequencies (for words with equal frequencies,
    use alphabetical ordering of words).
  - Example use case? See: https://www.trendsmap.com/

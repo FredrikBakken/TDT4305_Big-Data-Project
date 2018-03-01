@@ -6,7 +6,7 @@ Description:
  - Use local time for tweets
  - Hint: You can use datetime library in Python. Example:
    - utc_time=1447085101697, timezone_offset= -7200
-   - Local time in seconds: 1447085101697 / 1000 – 7200 = 1447077901
+   - Local time in seconds: 1447085101697 / 1000 - 7200 = 1447077901
    - datetime.fromtimestamp(1447077901) = 2015-11-09 15:05:01
  - Calculate how many tweets are posted at each hour and find the most active hours for the countries
 '''
