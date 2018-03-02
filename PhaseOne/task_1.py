@@ -36,8 +36,8 @@ LONGITUDE           = 12
 
 
 # Count the total number of tweets
-def totalNumber(tweets):
-    return tweets.count()
+def totalNumber(data):
+    return data.count()
 
 
 # Count number of distinct values
@@ -56,10 +56,13 @@ def maxValue(data, row):
 
 
 # Avg. characters
-# TODO
+def avgCharacters(data, row):
+    return data.map(lambda x : len(x[row])).mean()
+
 
 # Avg. words
-# TODO
+def avgWords(data, row):
+    return data.map(lambda x : len(x[row].split(' '))).mean()
 
 
 def task1_1(input_file, output_file):
@@ -70,33 +73,31 @@ def task1_1(input_file, output_file):
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
     # Processing data
-    #total_tweets = totalNumber(data)
-    #usernames = countDistinct(data, USERNAME)
-    #country_names = countDistinct(data, COUNTRY_NAME)
-    #place_names = countDistinct(data, PLACE_NAME)
-    #languages = countDistinct(data, LANGUAGE)
-    #minLat = minValue(data, LATITUDE)
-    #minLng = minValue(data, LONGITUDE)
-    #maxLat = maxValue(data, LATITUDE)
-    #maxLng = maxValue(data, LONGITUDE)
+    total_tweets = totalNumber(data)
+    usernames = countDistinct(data, USERNAME)
+    country_names = countDistinct(data, COUNTRY_NAME)
+    place_names = countDistinct(data, PLACE_NAME)
+    languages = countDistinct(data, LANGUAGE)
+    minLat = minValue(data, LATITUDE)
+    minLng = minValue(data, LONGITUDE)
+    maxLat = maxValue(data, LATITUDE)
+    maxLng = maxValue(data, LONGITUDE)
+    avgChars = avgCharacters(data, TWEET_TEXT)
+    avgWrds = avgWords(data, TWEET_TEXT)
 
 
     # Result print
-    #print('Total number of tweets: ' + str(total_tweets))
-    #print('Number of distinct usernames: ' + str(usernames))
-    #print('Number of distinct country names: ' + str(country_names))
-    #print('Number of distinct place names: ' + str(place_names))
-    #print('Number of distinct languages: ' + str(languages))
-    #print('Minimum latitude: ' + str(minLat))
-    #print('Minimum longitude: ' + str(minLng))
-    #print('Maximum latitude: ' + str(maxLat))
-    #print('Maximum longitude: ' + str(maxLng))
-
-
-    # Testing
-    # ...
-
-
+    print('Total number of tweets: ' + str(total_tweets))
+    print('Number of distinct usernames: ' + str(usernames))
+    print('Number of distinct country names: ' + str(country_names))
+    print('Number of distinct place names: ' + str(place_names))
+    print('Number of distinct languages: ' + str(languages))
+    print('Minimum latitude: ' + str(minLat))
+    print('Minimum longitude: ' + str(minLng))
+    print('Maximum latitude: ' + str(maxLat))
+    print('Maximum longitude: ' + str(maxLng))
+    print('Average number of characters in each tweet: ' + str(avgChars))
+    print('Average number of words in each tweet: ' + str(avgWrds))
 
 
 
