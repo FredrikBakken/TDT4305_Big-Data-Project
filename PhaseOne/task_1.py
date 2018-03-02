@@ -83,7 +83,6 @@ def task1_1(input_file, output_file):
     avgChars        = avgCharacters(data, TWEET_TEXT)
     avgWrds         = avgWords(data, TWEET_TEXT)
 
-
     # Formatting and printing results
     prettyTable = PrettyTable(['Description', 'Value'])
     prettyTable.add_row(['Total number of tweets', total_tweets])
@@ -100,7 +99,7 @@ def task1_1(input_file, output_file):
     print(prettyTable)
 
     # Store results in file
-    with open('PhaseOne/data/results/task_1.tsv', 'w') as f:
+    with open(output_file, 'w') as f:
         f.write(prettyTable.get_string())
 
 
@@ -113,6 +112,6 @@ if __name__ == "__main__":
         output_file = arguments[2]
         task1_1(input_file, output_file)
     except IndexError:
-        task1_1('/data/geotweets.tsv', '/data/output_task1')
+        task1_1('/data/geotweets.tsv', 'PhaseOne/data/results/task_1.tsv')
     except:
         print('Something went wrong during the initialization. Please see the command execution examples on Github (www.github.com/FredrikBakken/TDT4305_Big-Data-Project/tree/master/PhaseOne).')
