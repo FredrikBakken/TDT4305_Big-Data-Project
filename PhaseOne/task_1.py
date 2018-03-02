@@ -10,16 +10,13 @@ Description:
  - Average number of words in tweet texts
 '''
 
-import re
 import sys
-import string
-import calendar
 
+from prettytable import PrettyTable
 from pyspark import SparkConf, SparkContext
-from datetime import datetime
 
 
-# Data structure
+# Header structure
 UTC_TIME            = 0
 COUNTRY_NAME        = 1
 COUNTRY_CODE        = 2
@@ -65,6 +62,7 @@ def avgWords(data, row):
     return data.map(lambda x : len(x[row].split(' '))).mean()
 
 
+# Task 1 main
 def task1_1(input_file, output_file):
     conf = SparkConf().setMaster('local[*]').setAppName('TDT4305: Big Data Architecture - Project Phase 1, Task 1')
     sc = SparkContext(conf = conf)
@@ -73,31 +71,37 @@ def task1_1(input_file, output_file):
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
     # Processing data
-    total_tweets = totalNumber(data)
-    usernames = countDistinct(data, USERNAME)
-    country_names = countDistinct(data, COUNTRY_NAME)
-    place_names = countDistinct(data, PLACE_NAME)
-    languages = countDistinct(data, LANGUAGE)
-    minLat = minValue(data, LATITUDE)
-    minLng = minValue(data, LONGITUDE)
-    maxLat = maxValue(data, LATITUDE)
-    maxLng = maxValue(data, LONGITUDE)
-    avgChars = avgCharacters(data, TWEET_TEXT)
-    avgWrds = avgWords(data, TWEET_TEXT)
+    total_tweets    = totalNumber(data)
+    usernames       = countDistinct(data, USERNAME)
+    country_names   = countDistinct(data, COUNTRY_NAME)
+    place_names     = countDistinct(data, PLACE_NAME)
+    languages       = countDistinct(data, LANGUAGE)
+    minLat          = minValue(data, LATITUDE)
+    minLng          = minValue(data, LONGITUDE)
+    maxLat          = maxValue(data, LATITUDE)
+    maxLng          = maxValue(data, LONGITUDE)
+    avgChars        = avgCharacters(data, TWEET_TEXT)
+    avgWrds         = avgWords(data, TWEET_TEXT)
 
 
-    # Result print
-    print('Total number of tweets: ' + str(total_tweets))
-    print('Number of distinct usernames: ' + str(usernames))
-    print('Number of distinct country names: ' + str(country_names))
-    print('Number of distinct place names: ' + str(place_names))
-    print('Number of distinct languages: ' + str(languages))
-    print('Minimum latitude: ' + str(minLat))
-    print('Minimum longitude: ' + str(minLng))
-    print('Maximum latitude: ' + str(maxLat))
-    print('Maximum longitude: ' + str(maxLng))
-    print('Average number of characters in each tweet: ' + str(avgChars))
-    print('Average number of words in each tweet: ' + str(avgWrds))
+    # Formatting and printing results
+    prettyTable = PrettyTable(['Description', 'Value'])
+    prettyTable.add_row(['Total number of tweets', total_tweets])
+    prettyTable.add_row(['Number of distinct usernames', usernames])
+    prettyTable.add_row(['Number of distinct country names', country_names])
+    prettyTable.add_row(['Number of distinct place names', place_names])
+    prettyTable.add_row(['Number of distinct languages', languages])
+    prettyTable.add_row(['Minimum latitude', minLat])
+    prettyTable.add_row(['Minimum longitude', minLng])
+    prettyTable.add_row(['Maximum latitude', maxLat])
+    prettyTable.add_row(['Maximum longitude', maxLng])
+    prettyTable.add_row(['Average number of characters in each tweet', avgChars])
+    prettyTable.add_row(['Average number of words in each tweet', avgWrds])
+    print(prettyTable)
+
+    # Store results in file
+    with open('PhaseOne/data/results/task_1.tsv', 'w') as f:
+        f.write(prettyTable.get_string())
 
 
 

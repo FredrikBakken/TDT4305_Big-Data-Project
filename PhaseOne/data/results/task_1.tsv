@@ -1,0 +1,15 @@
++--------------------------------------------+---------------+
+|                Description                 |     Value     |
++--------------------------------------------+---------------+
+|           Total number of tweets           |    2715066    |
+|        Number of distinct usernames        |     499822    |
+|      Number of distinct country names      |       70      |
+|       Number of distinct place names       |     23121     |
+|        Number of distinct languages        |       46      |
+|              Minimum latitude              |  -54.87555556 |
+|             Minimum longitude              | -159.83019441 |
+|              Maximum latitude              |  69.83186826  |
+|             Maximum longitude              |  153.03508445 |
+| Average number of characters in each tweet | 87.2014098368 |
+|   Average number of words in each tweet    | 12.2284228081 |
++--------------------------------------------+---------------+
