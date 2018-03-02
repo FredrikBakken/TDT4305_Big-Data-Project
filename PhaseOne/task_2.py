@@ -65,6 +65,6 @@ if __name__ == "__main__":
         output_file = arguments[2]
         task1_2(input_file, output_file)
     except IndexError:
-        task1_2('/data/geotweets.tsv', 'PhaseOne/data/results/result_2.tsv')
+        task1_2('/data/geotweets.tsv', 'data/results/result_2.tsv')
     except:
         print('Something went wrong during the initialization. Please see the command execution examples on Github (www.github.com/FredrikBakken/TDT4305_Big-Data-Project/tree/master/PhaseOne).')

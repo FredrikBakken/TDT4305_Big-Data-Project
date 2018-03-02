@@ -37,7 +37,7 @@ LONGITUDE           = 12
 # TODO
 
 
-def task1_3():
+def task1_3(input_file, output_file):
     conf = SparkConf().setMaster('local[*]').setAppName('TDT4305: Big Data Architecture - Project Phase 1, Task 3')
     sc = SparkContext(conf = conf)
 
@@ -63,6 +63,6 @@ if __name__ == "__main__":
         output_file = arguments[2]
         task1_3(input_file, output_file)
     except IndexError:
-        task1_3('/data/geotweets.tsv', 'PhaseOne/data/results/task_3.tsv')
+        task1_3('/data/geotweets.tsv', 'data/results/task_3.tsv')
     except:
         print('Something went wrong during the initialization. Please see the command execution examples on Github (www.github.com/FredrikBakken/TDT4305_Big-Data-Project/tree/master/PhaseOne).')
