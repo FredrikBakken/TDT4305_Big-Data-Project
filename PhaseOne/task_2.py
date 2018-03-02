@@ -45,15 +45,17 @@ def task1_2(input_file, output_file):
     # Processing data
     sorted_result = ascendingSortByTweetsAndCountry(data, COUNTRY_NAME)
 
-    # Formatting and printing results
+    # Store results in file
+    with open(output_file, 'w') as f:
+        for x in range(len(sorted_result)):
+            f.write(str(sorted_result[x][0]) + '\t' + str(sorted_result[x][1]) + '\n')
+    
+    # Printing results to console (not part of the requirements)
     prettyTable = PrettyTable(['Country', 'Number of Tweets'])
     for x in range(len(sorted_result)):
         prettyTable.add_row([sorted_result[x][0], sorted_result[x][1]])
     print(prettyTable)
 
-    # Store results in file
-    with open(output_file, 'w') as f:
-        f.write(prettyTable.get_string())
 
 
 if __name__ == "__main__":

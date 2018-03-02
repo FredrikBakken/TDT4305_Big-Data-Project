@@ -71,19 +71,25 @@ def task1_1(input_file, output_file):
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
     # Processing data
-    total_tweets    = totalNumber(data)
-    usernames       = countDistinct(data, USERNAME)
-    country_names   = countDistinct(data, COUNTRY_NAME)
-    place_names     = countDistinct(data, PLACE_NAME)
-    languages       = countDistinct(data, LANGUAGE)
-    minLat          = minValue(data, LATITUDE)
-    minLng          = minValue(data, LONGITUDE)
-    maxLat          = maxValue(data, LATITUDE)
-    maxLng          = maxValue(data, LONGITUDE)
-    avgChars        = avgCharacters(data, TWEET_TEXT)
-    avgWrds         = avgWords(data, TWEET_TEXT)
+    total_tweets    = str(totalNumber(data))
+    usernames       = str(countDistinct(data, USERNAME))
+    country_names   = str(countDistinct(data, COUNTRY_NAME))
+    place_names     = str(countDistinct(data, PLACE_NAME))
+    languages       = str(countDistinct(data, LANGUAGE))
+    minLat          = str(minValue(data, LATITUDE))
+    minLng          = str(minValue(data, LONGITUDE))
+    maxLat          = str(maxValue(data, LATITUDE))
+    maxLng          = str(maxValue(data, LONGITUDE))
+    avgChars        = str(avgCharacters(data, TWEET_TEXT))
+    avgWrds         = str(avgWords(data, TWEET_TEXT))
 
-    # Formatting and printing results
+    results = [total_tweets, usernames, country_names, place_names, languages, minLat, minLng, maxLat, maxLng, avgChars, avgWrds]
+
+    # Store results in file
+    with open(output_file, 'w') as f:
+        f.write('\n'.join(results))
+    
+    # Printing results to console (not part of the requirements)
     prettyTable = PrettyTable(['Description', 'Value'])
     prettyTable.add_row(['Total number of tweets', total_tweets])
     prettyTable.add_row(['Number of distinct usernames', usernames])
@@ -97,10 +103,6 @@ def task1_1(input_file, output_file):
     prettyTable.add_row(['Average number of characters in each tweet', avgChars])
     prettyTable.add_row(['Average number of words in each tweet', avgWrds])
     print(prettyTable)
-
-    # Store results in file
-    with open(output_file, 'w') as f:
-        f.write(prettyTable.get_string())
 
 
 
