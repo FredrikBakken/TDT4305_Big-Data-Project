@@ -5,11 +5,13 @@
 ### Phase 1: Exploratory Analysis of Twitter Dataset
 
 **Objective:** Use Apache Spark for Big Data analysis.
+
 **Use case:** By using TSV file with ~2.7M localized tweets; explore the tweet data, perform geographical analysis of tweet locations, analyze tweet times, perform textual analysis on tweet texts, etc. 
 
 ### Phase 2: TBD
 
 **Objective:** TBD...
+
 **Use case:** TBD..
 
 ## Installation and Prerequisite
