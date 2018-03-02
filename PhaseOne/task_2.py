@@ -29,7 +29,7 @@ LONGITUDE           = 12
 
 
 # Descending sort by number of tweets and country name
-def ascendingSortByTweetsAndCountry(data, row):
+def descendingSortByTweetsAndCountry(data, row):
     return sorted(data.map(lambda x : x[row]).countByValue().items(), key=lambda k: (-k[1], k[0]))
 
 
@@ -42,7 +42,7 @@ def task1_2(input_file, output_file):
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
     # Processing data
-    sorted_result = ascendingSortByTweetsAndCountry(data, COUNTRY_NAME)
+    sorted_result = descendingSortByTweetsAndCountry(data, COUNTRY_NAME)
 
     # Store results in file
     with open(output_file, 'w') as f:
@@ -65,6 +65,6 @@ if __name__ == "__main__":
         output_file = arguments[2]
         task1_2(input_file, output_file)
     except IndexError:
-        task1_2('/data/geotweets.tsv', 'PhaseOne/data/results/task_2.tsv')
+        task1_2('/data/geotweets.tsv', 'PhaseOne/data/results/result_2.tsv')
     except:
         print('Something went wrong during the initialization. Please see the command execution examples on Github (www.github.com/FredrikBakken/TDT4305_Big-Data-Project/tree/master/PhaseOne).')
