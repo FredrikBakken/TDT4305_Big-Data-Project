@@ -8,7 +8,6 @@ Description:
 
 import sys
 
-from operator import itemgetter
 from prettytable import PrettyTable
 from pyspark import SparkConf, SparkContext
 
@@ -29,9 +28,9 @@ LATITUDE            = 11
 LONGITUDE           = 12
 
 
-# Ascending sort by number of tweets and country name
+# Descending sort by number of tweets and country name
 def ascendingSortByTweetsAndCountry(data, row):
-    return sorted(data.map(lambda x : x[row]).countByValue().items(), key=itemgetter(1,0))
+    return sorted(data.map(lambda x : x[row]).countByValue().items(), key=lambda k: (-k[1], k[0]))
 
 
 # Task 2 main
