@@ -1,4 +1,4 @@
-# Phase One
+# Phase 1: Exploratory Analysis of Twitter Dataset
 
 ## Task 1
 
