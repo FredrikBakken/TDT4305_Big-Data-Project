@@ -8,6 +8,7 @@ Description:
 
 import sys
 
+from operator import itemgetter
 from prettytable import PrettyTable
 from pyspark import SparkConf, SparkContext
 
@@ -28,8 +29,9 @@ LATITUDE            = 11
 LONGITUDE           = 12
 
 
-# Apache Spark data handling
-# TODO
+# Ascending sort by number of tweets and country name
+def ascendingSortByTweetsAndCountry(data, row):
+    return sorted(data.map(lambda x : x[row]).countByValue().items(), key=itemgetter(1,0))
 
 
 # Task 2 main
@@ -41,13 +43,17 @@ def task1_2(input_file, output_file):
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
     # Processing data
-    # TODO
+    sorted_result = ascendingSortByTweetsAndCountry(data, COUNTRY_NAME)
 
     # Formatting and printing results
-    # TODO
+    prettyTable = PrettyTable(['Country', 'Number of Tweets'])
+    for x in range(len(sorted_result)):
+        prettyTable.add_row([sorted_result[x][0], sorted_result[x][1]])
+    print(prettyTable)
 
     # Store results in file
-    # TODO
+    with open(output_file, 'w') as f:
+        f.write(prettyTable.get_string())
 
 
 if __name__ == "__main__":
