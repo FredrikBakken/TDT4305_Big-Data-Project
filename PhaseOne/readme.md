@@ -28,7 +28,15 @@ Alt-2: $ SPARK-LOCATION\bin\spark-submit task_2.py data/geotweets.tsv data/resul
 
 ## Task 3
 
-**TODO**
+**Run command:**
+
+```sh
+$ cd PhaseOne
+Alt-1: $ SPARK-LOCATION\bin\spark-submit task_3.py
+Alt-2: $ SPARK-LOCATION\bin\spark-submit task_3.py data/geotweets.tsv data/results/result_3.tsv
+```
+
+**Execution results** can be found [here](https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_3.tsv).
 
 ## Task 4
 
