@@ -13,6 +13,7 @@ Description:
 
 import sys
 
+from operator import add
 from prettytable import PrettyTable
 from pyspark import SparkConf, SparkContext
 
@@ -44,6 +45,44 @@ def task1_3(input_file, output_file):
     rawData = sc.textFile(input_file, use_unicode=False)
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
+    ## Testing
+    r1 = data.map(lambda x : (x[COUNTRY_NAME], 1)).reduceByKey(lambda x,y:x+y).collect()
+    print(r1)
+
+    # Possible to use RDD actions/transformation for this??
+    country_list = []
+    for country in r1:
+        if country[1] > 10:
+
+            avgLat = data.filter(lambda x : x[COUNTRY_NAME] == country[0]) \
+                         .map(lambda x : float(x[LATITUDE])).mean()
+            
+            avgLng = data.filter(lambda x : x[COUNTRY_NAME] == country[0]) \
+                         .map(lambda x : float(x[LONGITUDE])).mean()
+            
+            a = country[0] + '\t' + str(avgLat) + '\t' + str(avgLng)
+
+            country_list.append(a)
+    
+    print(country_list)
+
+    # Store results in file
+    with open(output_file, 'w') as f:
+        for x in range(len(country_list)):
+            f.write(country_list[x] + '\n')
+    
+    #print(country_list)
+
+    #r2 = data.filter(lambda x : x[COUNTRY_NAME] in country_list) \
+    #         .map(lambda x : (x[COUNTRY_NAME], [x[LONGITUDE], x[LATITUDE]])).take(5)
+    #print(r2)
+
+    #r2 = r1.leftOuterJoin(data).collect()
+    #print(r2)
+    #r2 = data.filter(lambda x : x[COUNTRY_NAME] and x[COUNTRY_NAME] in r1) \
+    #         .map(lambda x : x[COUNTRY_CODE]).countByValue().items()
+    #print(r2)
+
     # Processing data
     # TODO
 
@@ -63,6 +102,6 @@ if __name__ == "__main__":
         output_file = arguments[2]
         task1_3(input_file, output_file)
     except IndexError:
-        task1_3('/data/geotweets.tsv', 'data/results/task_3.tsv')
+        task1_3('/data/geotweets.tsv', 'data/results/result_3.tsv')
     except:
         print('Something went wrong during the initialization. Please see the command execution examples on Github (www.github.com/FredrikBakken/TDT4305_Big-Data-Project/tree/master/PhaseOne).')
