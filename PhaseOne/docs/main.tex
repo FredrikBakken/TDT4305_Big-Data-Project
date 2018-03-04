@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
+\usepackage{enumitem}
+
 \title{TDT4305: Project Phase 1\\Exploratory Analysis of Twitter Dataset}
 \author{Fredrik Bakken and Tor Arne Hagen}
 \date{\today}
@@ -10,8 +12,100 @@
 \maketitle
 
 \newpage
-\section*{Task 1: Load RDD and Explore}
 
+% QUESTION 1
+\section*{Task 1: Load RDD and Explore}
+\begin{enumerate}[label=\alph*)]
+    % Question 1a
+    \item \textit{How many tweets are there?}\\
+    
+    Total number of tweets: \textbf{2715066}.\\
+    
+    Solved by using the Spark function \textit{.count()} on the entire RDD data set.\\ \\
+    
+    
+    % Question 1b
+    \item \textit{How many distinct users (username) are there?}\\
+    
+    Number of distinct usernames: \textbf{499822}.\\
+    
+    Solved by using the Spark functions \textit{.map()}, \textit{.distinct()}, and \textit{.count()} on the USERNAME row of the data set.\\ \\
+    
+    
+    % Question 1c
+    \item \textit{How many distinct countries (country\_name) are there?}\\
+    
+    Number of distinct country names: \textbf{70}.\\
+    
+    Solved by using the Spark functions \textit{.map()}, \textit{.distinct()}, and \textit{.count()} on the COUNTRY\_NAME row of the data set.\\ \\
+    
+    
+    % Question 1d
+    \item \textit{How many distinct places (place\_name) are there?}\\
+    
+    Number of distinct place names: \textbf{23121}.\\
+    
+    Solved by using the Spark functions \textit{.map()}, \textit{.distinct()}, and \textit{.count()} on the PLACE\_NAME row of the data set.\\ \\
+    
+    
+    % Question 1e
+    \item \textit{In how many languages users post tweets?}\\
+    
+    Number of distinct languages: \textbf{46}.\\
+    
+    Solved by using the Spark functions \textit{.map()}, \textit{.distinct()}, and \textit{.count()} on the LANGUAGE row of the data set.\\ \\
+    
+    
+    % Question 1f
+    \item \textit{What is the minimum latitude?}\\
+    
+    Minimum latitude: \textbf{-54.87555556}.\\
+    
+    Solved by using the Spark function \textit{.min()} on the LATITUDE row of the data set.\\ \\
+    
+    
+    % Question 1g
+    \item \textit{What is the minimum longitude?}\\
+    
+    Minimum longitude: \textbf{-159.83019441}.\\
+    
+    Solved by using the Spark function \textit{.min()} on the LONGITUDE row of the data set.\\ \\
+    
+    
+    % Question 1h
+    \item \textit{What is the maximum latitude?}\\
+    
+    Maximum latitude: \textbf{69.83186826}.\\
+    
+    Solved by using the Spark function \textit{.max()} on the LATITUDE row of the data set.\\ \\
+    
+    
+    % Question 1i
+    \item \textit{What is the maximum longitude?}\\
+    
+    Maximum longitude: \textbf{153.03508445}.\\
+    
+    Solved by using the Spark function \textit{.max()} on the LONGITUDE row of the data set.\\ \\
+    
+    
+    % Question 1j
+    \item \textit{ What is the average length of a tweet text in terms of characters?}\\
+    
+    Average number of characters in each tweet: \textbf{87.2014098368}.\\
+    
+    Solved by using the Spark functions \textit{.map()} and \textit{.mean()} on the length of the TWEET\_TEXT row of the data set.\\ \\
+    
+    
+    % Question 1k
+    \item \textit{What is the average length of a tweet text in terms of words?}\\
+    
+    Average number of words in each tweet: \textbf{12.2284228081}.\\
+    
+    Solved by using the Spark functions \textit{.map()} and \textit{.mean()} on the split (by empty space) length of the TWEET\_TEXT row of the data set.\\ \\
+\end{enumerate}
+
+
+% QUESTION 2
 \section*{Task 2: Tweet Counts per Country}
 
 \section*{Task 3: Geographical Centroids per Country}
