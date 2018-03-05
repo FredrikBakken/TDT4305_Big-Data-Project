@@ -13,7 +13,6 @@ Description:
 
 import sys
 
-from operator import add
 from prettytable import PrettyTable
 from pyspark import SparkConf, SparkContext
 
@@ -34,10 +33,17 @@ LATITUDE            = 11
 LONGITUDE           = 12
 
 
-# Apache Spark functionality
-# TODO
+# Count tweets for each country
+def countTweetsCountry(data, row):
+    return data.map(lambda x : (x[row], 1)).reduceByKey(lambda x,y:x+y).collect()
 
 
+# Average (mean)
+def averageLatLng(data, country_name, row1, row2):
+    return data.filter(lambda x : x[row1] == country_name).map(lambda x : float(x[row2])).mean()
+
+
+# Task 3 main
 def task1_3(input_file, output_file):
     conf = SparkConf().setMaster('local[*]').setAppName('TDT4305: Big Data Architecture - Project Phase 1, Task 3')
     sc = SparkContext(conf = conf)
@@ -45,52 +51,31 @@ def task1_3(input_file, output_file):
     rawData = sc.textFile(input_file, use_unicode=False)
     data = rawData.map(lambda x: x.split('\n')[0].split('\t'))\
 
-    ## Testing
-    r1 = data.map(lambda x : (x[COUNTRY_NAME], 1)).reduceByKey(lambda x,y:x+y).collect()
-    print(r1)
+    # Processing data
+    tweetsCountry = countTweetsCountry(data, COUNTRY_NAME)
 
-    # Possible to use RDD actions/transformation for this??
-    country_list = []
-    for country in r1:
-        if country[1] > 10:
+    result_list = []
+    for country in tweetsCountry:
+        country_name    = country[0]
+        tweets          = country[1]
 
-            avgLat = data.filter(lambda x : x[COUNTRY_NAME] == country[0]) \
-                         .map(lambda x : float(x[LATITUDE])).mean()
-            
-            avgLng = data.filter(lambda x : x[COUNTRY_NAME] == country[0]) \
-                         .map(lambda x : float(x[LONGITUDE])).mean()
-            
-            a = country[0] + '\t' + str(avgLat) + '\t' + str(avgLng)
+        if tweets > 10:
+            avgLat = averageLatLng(data, country_name, COUNTRY_NAME, LATITUDE)
+            avgLng = averageLatLng(data, country_name, COUNTRY_NAME, LONGITUDE)
 
-            country_list.append(a)
-    
-    print(country_list)
+            formatted_result = [str(country_name), str(avgLat), str(avgLng)]
+            result_list.append(formatted_result)
 
     # Store results in file
     with open(output_file, 'w') as f:
-        for x in range(len(country_list)):
-            f.write(country_list[x] + '\n')
-    
-    #print(country_list)
-
-    #r2 = data.filter(lambda x : x[COUNTRY_NAME] in country_list) \
-    #         .map(lambda x : (x[COUNTRY_NAME], [x[LONGITUDE], x[LATITUDE]])).take(5)
-    #print(r2)
-
-    #r2 = r1.leftOuterJoin(data).collect()
-    #print(r2)
-    #r2 = data.filter(lambda x : x[COUNTRY_NAME] and x[COUNTRY_NAME] in r1) \
-    #         .map(lambda x : x[COUNTRY_CODE]).countByValue().items()
-    #print(r2)
-
-    # Processing data
-    # TODO
-
-    # Store results in file
-    # TODO
+        for x in range(len(result_list)):
+            f.write(result_list[x][0] + '\t' + result_list[x][1] + '\t' + result_list[x][2] + '\n')
 
     # Printing results to console (not part of the requirements)
-    # TODO
+    prettyTable = PrettyTable(['Country', 'Average latitude', 'Average longitude'])
+    for x in range(len(result_list)):
+        prettyTable.add_row([result_list[x][0], result_list[x][1], result_list[x][2]])
+    print(prettyTable)
     
 
 

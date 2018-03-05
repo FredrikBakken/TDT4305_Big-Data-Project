@@ -10,6 +10,7 @@ Be aware, this is not part of the project solution, only used by the students to
 import sys
 
 
+# PHASE 1: TASK 1
 def confirm_task1():
     # Total number of tweets
     with open('/data/geotweets.tsv') as f:
@@ -79,6 +80,7 @@ def confirm_task1():
         print('Average number of words: ' + str(avgWords))
 
 
+# PHASE 1: TASK 2
 def confirm_task2():
     with open('/data/geotweets.tsv') as f:
         results = []
@@ -104,6 +106,10 @@ def confirm_task2():
             print(r)
 
 
+# PHASE 1: TASK 3
+def confirm_task3():
+    print('TO BE DONE')
+
 
 if __name__ == "__main__":
     arguments = sys.argv[1:]
@@ -119,6 +125,7 @@ if __name__ == "__main__":
         
         if '3' in arguments:
             print('Starting confirmation program for task 3...')
+            confirm_task3()
         
         if '4' in arguments:
             print('Starting confirmation program for task 4...')
