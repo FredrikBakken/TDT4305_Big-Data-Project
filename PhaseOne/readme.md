@@ -44,15 +44,33 @@ Alt-2: $ SPARK-LOCATION\bin\spark-submit task_3.py data/geotweets.tsv data/resul
 
 ## Task 5
 
-**TODO**
+```sh
+$ cd PhaseOne
+Alt-1: $ SPARK-LOCATION\bin\spark-submit task_5.py
+Alt-2: $ SPARK-LOCATION\bin\spark-submit task_5.py data/geotweets.tsv data/results/result_5.tsv
+```
+
+**Execution results** can be found [here](https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_5.tsv).
 
 ## Task 6
 
-**TODO**
+```sh
+$ cd PhaseOne
+Alt-1: $ SPARK-LOCATION\bin\spark-submit task_6.py
+Alt-2: $ SPARK-LOCATION\bin\spark-submit task_6.py data/geotweets.tsv data/results/result_6.tsv
+```
+
+**Execution results** can be found [here](https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_6.tsv).
 
 ## Task 7
 
-**TODO**
+```sh
+$ cd PhaseOne
+Alt-1: $ SPARK-LOCATION\bin\spark-submit task_7.py
+Alt-2: $ SPARK-LOCATION\bin\spark-submit task_7.py data/geotweets.tsv data/results/result_7.tsv
+```
+
+**Execution results** can be found [here](https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_7.tsv).
 
 ## Task 8
 
