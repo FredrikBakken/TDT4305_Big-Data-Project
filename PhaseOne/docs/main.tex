@@ -3,6 +3,8 @@
 
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
 
 \hypersetup{
     colorlinks=true,
@@ -133,16 +135,105 @@
     ANSWER...\\ \\
 \end{enumerate}
 
-\section*{Task 3: Geographical Centroids per Country}
 
+% QUESTION 3
+\section*{Task 3: Geographical Centroids per Country}
+\subsection*{Source Code and Results}
+    \begin{itemize}
+        \item \textbf{Source code:} task\_3.py (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/task_3.py}{Github})
+        \item \textbf{Results:} /data/results/result\_3.tsv (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_3.tsv}{Github})
+    \end{itemize}
+
+\subsection*{Questions to be Answered}
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Write a code (named "task\_3") that outputs in a TSV file the latitude and longitude of the centroids and the names of the countries, in the form of \textless country\_name\textgreater tab\textless latitude\textgreater tab\textless longitude\textgreater .}\\
+    
+    The final code solution in task 3 uses a method which creates an extreme run-time of more 30min. Eventhough the execution time is extremely slow because of so many Spark tasks, it still gives the correct result.\\
+    
+    A more efficient solution would take advantage of the aggregation method.\\
+    
+    \item \textit{Visualize the results in CartoDB.}\\
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{PhaseOne/docs/img/cartodb-visualization.png}
+        \caption{Result Visualization in CartoDB.}
+        \label{fig:cartodb}
+    \end{figure}
+    
+\end{enumerate}
+
+
+% QUESTION 4
 \section*{Task 4: Most Active Hours per Country}
+\subsection*{Source Code and Results}
+    \begin{itemize}
+        \item \textbf{Source code:} task\_4.py (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/task_4.py}{Github})
+        \item \textbf{Results:} /data/results/result\_4.tsv (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_4.tsv}{Github})
+    \end{itemize}
+
+\subsection*{Questions to be Answered}
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Question...}\\
+    
+    ANSWER...\\ \\
+\end{enumerate}
+
 
 \section*{Task 5: Tweet Counts per City}
+\subsection*{Source Code and Results}
+    \begin{itemize}
+        \item \textbf{Source code:} task\_5.py (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/task_5.py}{Github})
+        \item \textbf{Results:} /data/results/result\_5.tsv (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_5.tsv}{Github})
+    \end{itemize}
+
+\subsection*{Questions to be Answered}
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Question...}\\
+    
+    ANSWER...\\ \\
+\end{enumerate}
 
 \section*{Task 6: Frequent Words in a Country}
+\subsection*{Source Code and Results}
+    \begin{itemize}
+        \item \textbf{Source code:} task\_6.py (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/task_6.py}{Github})
+        \item \textbf{Results:} /data/results/result\_6.tsv (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_6.tsv}{Github})
+    \end{itemize}
+
+\subsection*{Questions to be Answered}
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Question...}\\
+    
+    ANSWER...\\ \\
+\end{enumerate}
 
 \section*{Task 7: Frequent Words per City}
+\subsection*{Source Code and Results}
+    \begin{itemize}
+        \item \textbf{Source code:} task\_7.py (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/task_7.py}{Github})
+        \item \textbf{Results:} /data/results/result\_7.tsv (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_7.tsv}{Github})
+    \end{itemize}
+
+\subsection*{Questions to be Answered}
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Question...}\\
+    
+    ANSWER...\\ \\
+\end{enumerate}
 
 \section*{Task 8: Explore using Spark SQL and Dataset API}
+\subsection*{Source Code and Results}
+    \begin{itemize}
+        \item \textbf{Source code:} task\_8.py (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/task_8.py}{Github})
+        \item \textbf{Results:} /data/results/result\_8.tsv (\href{https://github.com/FredrikBakken/TDT4305_Big-Data-Project/blob/master/PhaseOne/data/results/result_8.tsv}{Github})
+    \end{itemize}
+
+\subsection*{Questions to be Answered}
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Question...}\\
+    
+    ANSWER...\\ \\
+\end{enumerate}
 
 \end{document}
