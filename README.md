@@ -8,11 +8,11 @@
 
 **Use case:** By using TSV file with ~2.7M localized tweets; explore the tweet data, perform geographical analysis of tweet locations, analyze tweet times, perform textual analysis on tweet texts, etc. 
 
-### Phase 2: TBD
+### Phase 2: Location Estimation of a Tweet
 
-**Objective:** TBD...
+**Objective:** Estimate the location for a tweet text in terms of place.
 
-**Use case:** TBD..
+**Use case:** The aim of the second phase is to create a Spark application that will estimate the location for a tweet text in terms of place. The Twitter dataset in Phase 1 will be used for training (to calculate which words are used in which places). Then, given a new tweet text, its place should be estimated according to this training data.
 
 ## Installation and Prerequisite
 
@@ -22,7 +22,7 @@ All installation steps are for Windows 10. If you have another OS, these steps m
  - Download and install [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (recommend [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)) to e.g. location C:\Java\jdk.
  - Create a new environment variable (JAVA_HOME) and set the path to the installed location for jdk.
  - Update the enviromental variable "Path" to point to %JAVA_HOME%\bin.
- - Make sure that everything works by using the commands "java -v" and "javac -v" in cmd.
+ - Make sure that everything works by using the commands "java -version" and "javac -version" in cmd.
 
 ### Python
  - Download and install [Python 2.7](https://www.python.org/downloads/release/python-2714/) (add Python to Path during the installation).
