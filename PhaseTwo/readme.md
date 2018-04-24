@@ -21,4 +21,4 @@ During the testing we noticed an error message on one of our laptops, which was 
 TypeError: a bytes-like object is required, not 'str'
 ```
 
-An alternative solution to this issue is to set "use_unicode=True" on line 90 in classify.py.
+An alternative solution to this issue is to set "use_unicode=True" on line 88 in classify.py.
