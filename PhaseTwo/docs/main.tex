@@ -1,0 +1,120 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue,
+}
+
+\title{TDT4305: Project Phase 2\\Location Estimation of a Tweet}
+\author{Fredrik Bakken and Tor Arne Hagen}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{PhaseOne/docs/img/big-data.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{PhaseOne/docs/img/ntnu.png}
+\end{figure}
+
+\newpage
+
+
+
+\section*{Brief Description of Delivered Program}
+All the documentations, source code, and further details about the project can be found on our Github repository: \url{https://github.com/FredrikBakken/TDT4305_Big-Data-Project}.
+
+
+\subsection*{Program Startup}
+One of the requirements for phase two was to setup the program to have three input flags during start up. To solve this, we chose to use an external library known as \texttt{argparse}. By using the official documentation for the library, we setup the program start up to have three mandatory flags:
+
+\begin{enumerate}
+    \item \texttt{-training} (or \texttt{-t}), full path of the training file.
+    \item \texttt{-input} (or \texttt{-i}), full path of the input file.
+    \item \texttt{-output} (or \texttt{-o}), full path of the output file.
+\end{enumerate}
+
+\noindent If any of these flags are incorrect or invalid, the program will terminate.
+
+
+\subsection*{Generate Training Set Sample}
+In the presentation, a recommendation was to use a sample set of the entire training file. This was solved by the Python Spark function \texttt{sample} as follows: \texttt{.sample(False, 0.1, 5)}, which is used to return a subset of the entire data set.\\
+
+\noindent Since only two columns in the \texttt{geotweets.tsv} file was necessary in the task, we used the \texttt{map} function to only take these two columns into account: \texttt{.map(lambda pt : (pt[PLACE\_NAME], pt[TWEET\_TEXT].lower().split(' ')))}, (place is 4 and tweet is 10). The tweet text was set to all lowercase characters and each word was split into a list based (because of the Naive Bayes Classifier's word occurrence count).
+
+
+\subsection*{Read Input Tweet(s)}
+The input file is used to represent a random tweet, which the program is going to estimate where is located by comparing with a training set of other actual tweets. Each line in the file is split into a list of words, which then again is appended into a list that holds all the different input tweets (a list of lists, containing different tweet representations).
+
+
+\subsection*{Total Number of Tweets}
+One of the variables necessary to calculate the Naive Bayes Classifier is the total number of tweets, which can be found by using the \texttt{count} function as: \texttt{.count()}.
+
+
+\subsection*{Probability Calculations}
+The actual probability calculations consists of two steps, preparations of the data and the actual probability calculations for each location.
+
+
+\subsubsection*{Preparation}
+For the preparation step, \texttt{aggregateByKey} is used to perform more complicated calculations. A template is first created to represent the occurrence value (zeroValue) for each word in the simulated tweet. For each row of data, the \texttt{occurrence\_counter} is used as a sequence function to count the number of occurrences of each word for the specific locations, while the number of a specific location is also added up. Then a combination function is initiated to the specific values between partitions.\\
+
+\noindent Next step is to \texttt{filter} out all locations which has an occurrence count less than 1. This can be done since the Naive Bayes Classifier will result in a probability of 0 for any situation where there is an occurrence count equal to 0.
+
+
+\subsubsection*{Calculations}
+While performing a \texttt{map} (to only return necessary data), the probability similarity calculation is executed according to the Naive Bayes formulae:
+
+\begin{enumerate}
+    \item $\frac{|T_{c}|}{|T|}$ , \texttt{p = (float(incidents[1]) / float(total\_number\_of\_tweets))}
+    \item $\frac{|T_{c, w_{x}}|}{|T_{c}|}$ , \texttt{p *= (float(word\_count) / float(incidents[1]))}
+\end{enumerate}
+
+
+\subsection*{Find Highest Probable Location}
+To find the location(s) with the highest probable similarity to the represented tweet (from the input file), a \texttt{count} is first executed to make sure that there actually are any tweets with probable similarity (according to Naive Bayes). If there are none, then the value \texttt{None} is returned. If there on the other hand are any similar tweets, the highest probability value is found by using the \texttt{max} function by: \texttt{.max(key=lambda x : x[1])[1]}. The returned probability value can then be used to \texttt{filter} out all occurrences of the same probability by: \texttt{.filter(lambda x : x[1] == highest\_probability).collect()}.
+
+
+\subsection*{Store Results in File}
+All locations with the highest probable chance is then stored into the output file. The file is organized by each row representing results from each tweet simulation in the input file. Each row is also split by locations (with tab between) and probability in the end.
+
+\subsection*{Test Results}
+After the development process was completed, a few simulation tests were ran to check which location had the most probable similarities:
+\medskip
+
+\noindent \begin{tabular}{l|l|l}
+    \textbf{Tweet Text} & \textbf{Location(s)} & \textbf{Probability} \\ \hline
+    Empire & Manhattan, NY & 0.00016591085057 \\
+    No ska oss på fæstival! & &  \\
+    \#WhiteHouse & Washington, DC & 7.37381558087e-06 \\
+    Fallingwater & Pennsylvania, USA & 3.68690779044e-06 \\
+    Catedral & Belm, Par & 1.84345389522e-05 \\
+    Iguazu Falls & Foz do Iguau, Paran & 4.8511944611e-08 \\
+    Cabildo & Asuncion, Paraguay & 3.68690779044e-06 \\
+    I love bacon & Avondale, AZ & 8.19312842319e-08 \\
+    I'm drinking coffee. I like it! & Minneapolis, MN & 1.44649093188e-14 \\
+    I want some chocolate & Red Hill, SC & 6.32185835123e-09 \\
+    It's so cold in here! & College Station, TX & 2.62297478921e-11 \\
+\end{tabular}
+
+\vspace{1.0cm}
+\section*{References/Resources}
+\begin{enumerate}
+    \item \url{https://spark.apache.org/docs/latest/api/python/pyspark.html}
+    \item \url{https://docs.python.org/3/library/argparse.html}
+    \item \url{http://www.learnbymarketing.com/618/pyspark-rdd-basics-examples/}
+\end{enumerate}
+
+\end{document}
