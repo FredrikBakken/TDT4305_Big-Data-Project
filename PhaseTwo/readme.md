@@ -1,5 +1,7 @@
 # Phase 2: Location Estimation of a Tweet
 
+Before running the execution, place the geotweets.tsv file in the data folder.
+
 ## Code Execution
 
 **Run command:**
